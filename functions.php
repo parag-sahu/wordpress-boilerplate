@@ -75,3 +75,25 @@ if ( ! function_exists( '_wp_render_title_tag' ) ) {
 */
 if ( ! isset( $content_width ) )
 	$content_width = 1920;
+
+/**
+* Add some lines of code to the head of every
+* file using wp_head action
+*/
+function ps_add_html_to_head(){
+    /**
+    * Adds a magic responsive tag to every page of the wordpress site.
+    */
+    ?>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <?php
+    
+    /**
+    * Add further scripts that are much required like google analytics!
+    *
+    * ---------------------left as a placeholder for further editing
+    *
+    */
+
+}
+add_action( 'wp_head', 'ps_add_html_to_head' );
