@@ -101,7 +101,7 @@ add_action( 'wp_head', 'ps_add_html_to_head' );
 
 function ps_post_head(){
     ?>
-    <?php if(is_single()):?>
+    <?php if(is_single()||is_page()):?>
         <h1><?php the_title(); ?></h1>
     <?php else: ?>
         <a href="<?php the_permalink(); ?>" rel="bookmark"><h2><?php the_title(); ?></h2></a>
@@ -116,7 +116,7 @@ add_action( 'ps_post_header','ps_post_head' );
 
 function ps_post_foot(){
     ?>
-    <?php  if(is_single()):
+    <?php  if(is_single()||is_page()):
         do_action('ps_author_details');
         comments_template();
         endif;
@@ -135,3 +135,28 @@ function ps_print_author_meta(){
 }
 
 add_action('ps_author_details', 'ps_print_author_meta');
+
+function ps_register_menu() {
+  register_nav_menus(
+    array(
+      'header-menu' => __( 'Header Menu' ),
+      'extra-menu' => __( 'Extra Menu' )
+    )
+  );
+}
+add_action( 'init', 'ps_register_menu' );
+
+function ps_excerpt_more( $more ) {
+	return '...';
+}
+add_filter( 'excerpt_more', 'ps_excerpt_more' );
+
+function ps_post_pagination(){
+    the_posts_pagination( array(
+	'mid_size'  => 2,
+	'prev_text' => __( 'New', 'textdomain' ),
+	'next_text' => __( 'Older', 'textdomain' ),
+) );
+}
+
+add_action( 'ps_pagination', 'ps_post_pagination' );

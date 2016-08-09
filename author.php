@@ -1,5 +1,6 @@
-<?php
+<?php 
     get_header();
+    do_action( 'ps_author_details' );
     if(have_posts()):
         while(have_posts()):the_post();
             get_template_part( 'format', get_post_format() );
