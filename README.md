@@ -8,7 +8,7 @@ Intially text-domain is set to ps-wordpress-boilerplate.
 
 ##Custom Actions 
 
-*ps_post_header
-*ps_post_footer
-*ps_pagination
-*ps_author_details
+1.ps_post_header
+2.ps_post_footer
+3.ps_pagination
+4.ps_author_details
