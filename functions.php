@@ -97,3 +97,41 @@ function ps_add_html_to_head(){
 
 }
 add_action( 'wp_head', 'ps_add_html_to_head' );
+
+
+function ps_post_head(){
+    ?>
+    <?php if(is_single()):?>
+        <h1><?php the_title(); ?></h1>
+    <?php else: ?>
+        <a href="<?php the_permalink(); ?>" rel="bookmark"><h2><?php the_title(); ?></h2></a>
+    <?php endif;?>   
+    <p>Written by: <?php the_author_posts_link(); ?></p>
+    <?php edit_post_link('edit', '<p>', '</p>'); ?>
+    <p><?php the_time('F jS, Y'); ?></p>
+    <?php
+}
+
+add_action( 'ps_post_header','ps_post_head' );
+
+function ps_post_foot(){
+    ?>
+    <?php  if(is_single()):
+        do_action('ps_author_details');
+        comments_template();
+        endif;
+    ?>
+    <?php
+}
+
+add_action( 'ps_post_footer','ps_post_foot' );
+
+function ps_print_author_meta(){
+    ?>
+    <?php echo get_avatar(get_the_author_meta('ID')); ?>
+    <?php the_author_meta('display_name');?>
+    <?php the_author_meta('user_description');?>
+    <?php
+}
+
+add_action('ps_author_details', 'ps_print_author_meta');
