@@ -137,9 +137,19 @@ add_action( 'ps_post_footer','ps_post_foot' );
 */
 function ps_print_author_meta(){
     ?>
-    <?php echo get_avatar(get_the_author_meta('ID')); ?>
-    <?php the_author_meta('display_name');?>
-    <?php the_author_meta('user_description');?>
+    <article>
+        <header>
+            <figure>
+                <?php echo get_avatar(get_the_author_meta('ID')); ?>
+            </figure>
+            <?php if(is_author()):?>
+                <h1><?php the_author_meta('display_name');?></h1>
+            <?php else:?>
+                <h3><?php the_author_posts_link(); ?></h3>
+            <?php endif;?>
+        </header>
+    <p><?php the_author_meta('user_description');?></p>
+    </article>
     <?php
 }
 add_action('ps_author_details', 'ps_print_author_meta');
@@ -151,7 +161,6 @@ function ps_register_menu() {
   register_nav_menus(
     array(
       'header-menu' => __( 'Header Menu' ),
-      'extra-menu' => __( 'Extra Menu' )
     )
   );
 }
