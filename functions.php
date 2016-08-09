@@ -98,7 +98,10 @@ function ps_add_html_to_head(){
 }
 add_action( 'wp_head', 'ps_add_html_to_head' );
 
-
+/**
+* Add print statements for post header. 
+* Uses action ps_post_header.
+*/
 function ps_post_head(){
     ?>
     <?php if(is_single()||is_page()):?>
@@ -111,9 +114,12 @@ function ps_post_head(){
     <p><?php the_time('F jS, Y'); ?></p>
     <?php
 }
-
 add_action( 'ps_post_header','ps_post_head' );
 
+/**
+* Execute some lines of code in post footer.
+* Uses action ps_post_footer
+*/
 function ps_post_foot(){
     ?>
     <?php  if(is_single()||is_page()):
@@ -123,9 +129,12 @@ function ps_post_foot(){
     ?>
     <?php
 }
-
 add_action( 'ps_post_footer','ps_post_foot' );
 
+/**
+* Print out details of author.
+* uses action ps_author_details
+*/
 function ps_print_author_meta(){
     ?>
     <?php echo get_avatar(get_the_author_meta('ID')); ?>
@@ -133,9 +142,11 @@ function ps_print_author_meta(){
     <?php the_author_meta('user_description');?>
     <?php
 }
-
 add_action('ps_author_details', 'ps_print_author_meta');
 
+/**
+* Register menus for the theme.
+*/
 function ps_register_menu() {
   register_nav_menus(
     array(
@@ -146,11 +157,17 @@ function ps_register_menu() {
 }
 add_action( 'init', 'ps_register_menu' );
 
+/**
+* Customize excerpt using 'excerpt_more' filter.
+*/
 function ps_excerpt_more( $more ) {
 	return '...';
 }
 add_filter( 'excerpt_more', 'ps_excerpt_more' );
 
+/**
+* An action to add pagination.
+*/
 function ps_post_pagination(){
     the_posts_pagination( array(
 	'mid_size'  => 2,
@@ -158,5 +175,4 @@ function ps_post_pagination(){
 	'next_text' => __( 'Older', 'textdomain' ),
 ) );
 }
-
 add_action( 'ps_pagination', 'ps_post_pagination' );
